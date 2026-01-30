@@ -263,9 +263,33 @@ robot-telemetry-dashboard/
 * Clear README documentation
 * Direct alignment with junior fullstack job requirements
 
+## 10. Gereksinim Matrisi
+| **İlanda Yer Alan Madde**                                                       | **Projede Olması Gereken Karşılığı** | **Projede Nasıl Sağlanıyor? (Somut)**                                   |
+| ------------------------------------------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------- |
+| **Bilinç sisteminin web tabanlı kullanıcı arayüzlerinin geliştirilmesi**        | Web tabanlı dashboard                | HTML + CSS + Bootstrap ile geliştirilen, tarayıcıdan erişilen dashboard |
+| **Robotik sistemlerden gelen verilerin görselleştirilmesi**                     | Robot telemetri verileri             | Simüle edilen robot sensör verileri (sıcaklık, batarya, RPM vb.)        |
+|                                                                                 | Veri görselleştirme                  | Chart.js ile zaman bazlı grafikler, göstergeler                         |
+| **Backend servislerinin geliştirilmesi ve bakımı**                              | Backend API katmanı                  | Flask ile yazılmış REST API servisleri                                  |
+|                                                                                 | Servis sürdürülebilirliği            | Modüler Flask yapısı, servis–route ayrımı                               |
+| **Ar-Ge ekibiyle birlikte çalışarak teknik ihtiyaçlara hızlı çözümler üretmek** | Esnek ve genişletilebilir mimari     | PRD + modüler backend yapısı, yeni sensör eklemeye uygun tasarım        |
+| **Python bilgisi**                                                              | Python backend                       | Flask uygulaması, veri simülasyonu, servis mantığı                      |
+| **Flask veya benzeri backend framework deneyimi**                               | Flask kullanımı                      | Flask REST API, routing, service layer                                  |
+| **HTML / CSS / Bootstrap ile arayüz geliştirebilme**                            | Responsive frontend                  | Bootstrap grid sistemi, UI bileşenleri                                  |
+| **Temel seviyede JavaScript bilgisi**                                           | Dinamik veri çekme                   | JS ile API’den veri çekme ve UI güncelleme                              |
+| **Öğrenmeye açık, düzenli, sorumluluk alabilen**                                | Dokümantasyon ve yapı                | README + PRD + düzenli klasör yapısı                                    |
+| **Yeni mezun veya 0–2 yıl deneyimli**                                           | Junior seviyeye uygun kapsam         | Gerçekçi ama abartısız endüstriyel proje                                |
+| **Endüstriyel yazılım projelerinde gelişmek isteyen**                           | Endüstriyel senaryo                  | Robot izleme & telemetri paneli                                         |
+| **Öğrenme eğilimi yüksek**                                                      | Genişletilebilir proje               | WebSocket, çoklu robot, alarm sistemi için açık yapı                    |
+| **REST API geliştirme deneyimi (Artı)**                                         | REST endpoint’ler                    | GET /latest, GET /history, POST /command                                |
+| **Foxglove bridge deneyimi (Artı)**                                             | Foxglove-benzeri veri yapısı         | Zaman damgalı, robot telemetri formatına uygun JSON                     |
+|                                                                                 | Gerçek zamanlı veri yaklaşımı        | Periyodik polling veya WebSocket                            |
+| **PostgreSQL veya benzeri SQL veritabanı**                                      | SQL veri tabanı                      | PostgreSQL ile telemetry tablosu                                        |
+| **Teknik projelerde aktif rol almış olmak**                                     | Baştan sona sahiplenilen proje       | Tek repo, deploy edilmiş canlı demo                                     |
+| **Git ya da benzer versiyon kontrol bilgisi**                                   | Git kullanımı                        | GitHub repo, commit geçmişi, README                                     |
+
 ---
 
-## 10. Future Enhancements (Optional)
+## 11. Future Enhancements (Optional)
 
 * Authentication & role-based access
 * Multi-robot support
