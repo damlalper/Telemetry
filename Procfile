@@ -1,1 +1,1 @@
-web: gunicorn -k gevent -w 1 "backend.app:create_app()"
+web: python -m gunicorn -k gevent -w 1 -b 0.0.0.0:$PORT "backend.app:create_app()"
