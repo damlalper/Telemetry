@@ -1,77 +1,279 @@
-### `PRD.md` (Product Requirements Document)
-# Product Requirements Document (PRD): Auto-CRM
+# 📌 Product Requirements Document (PRD)
 
-| Versiyon | Tarih | Statü | Yazar |
-| :--- | :--- | :--- | :--- |
-| v1.0 | 05.12.2025 | Taslak | [Senin Adın] - İş Analisti |
+## Project Title
 
-## 1. Yönetici Özeti (Executive Summary)
-Auto-CRM, şirketlerin müşteri iletişim süreçlerindeki manuel eforu minimize eden, yapay zeka tabanlı otonom bir CRM platformudur. Amacımız, müşteri taleplerine dönüş hızını (Response Time) %80 azaltmak ve müşteri memnuniyet skorunu (NPS) artırmaktır. Sistem, "Event-Driven" mimari kullanarak reaktif değil, proaktif bir yapı sunar.
+**Robot Telemetry & Web-Based Monitoring Dashboard**
 
-## 2. Problem Tanımı (Problem Statement)
-Mevcut piyasa koşullarında şirketlerin yaşadığı temel CRM sorunları:
-* **Yavaş Dönüş Süreleri:** Müşteri formlarına dönüş ortalama 24-48 saati bulmaktadır.
-* **Veri Siloları:** Müşteri mailleri, satış notları ve destek kayıtları farklı sistemlerde tutulmakta, bütüncül bir müşteri profili oluşturulamamaktadır.
-* **Standart Yanıtlar:** Müşterilere bağlamdan kopuk, hazır şablon (copy-paste) cevaplar verilmektedir.
-* **Manuel Efor:** Satış temsilcileri zamanlarının %40'ını veri girişine harcamaktadır.
+---
 
-## 3. Hedefler ve Başarı Kriterleri (Goals & KPIs)
+## 1. Purpose & Vision
 
-| Hedef | Metrik (KPI) | Başarı Kriteri |
-| :--- | :--- | :--- |
-| Hızlı Yanıt | Average Response Time (ART) | < 2 Dakika (Draft oluşturma) |
-| Veri Bütünlüğü | Data Entry Automation Rate | %90+ Otonom Giriş |
-| Müşteri Memnuniyeti | Sentiment Score Improvement | Negatiften Pozitife dönüş oranı %30 artış |
-| Sistem Dayanıklılığı | Uptime | %99.9 (Kubernetes sayesinde) |
+The purpose of this project is to develop a **web-based fullstack application** that visualizes telemetry data coming from robotic systems in real time. The system is designed to simulate an **industrial robotic environment**, focusing on monitoring, data visualization, and backend service reliability.
 
-## 4. Kullanıcı Personaları (User Personas)
+The project directly targets **junior-level fullstack development roles** in robotics-oriented software teams and demonstrates hands-on capability in:
 
-* **Persona A: Satış Temsilcisi (Can):** Müşteriyi aradığında onun geçmişini, son mailindeki tonunu ve iade talebini tek ekranda görmek istiyor. Manuel not girmek istemiyor.
-* **Persona B: Müşteri Hizmetleri Müdürü (Elif):** Ekibin yoğunluğunu, hangi konularda şikayet geldiğini anlık olarak Grafana üzerinden izlemek istiyor.
-* **Persona C: Sistem Yöneticisi (DevOps):** Sistemin yoğun anlarda çökmemesini, Kafka kuyruğunun şişmemesini istiyor.
+* Backend service development
+* Web-based user interface design
+* Data visualization
+* REST API design
+* Database usage
+* Deployment
 
-## 5. Fonksiyonel Gereksinimler (Functional Requirements)
+---
 
-### 5.1. Veri Alımı (Ingestion - Go & Kafka)
-* **FR-01:** Sistem, Webhook, Email API ve Rest API üzerinden gelen verileri anlık olarak kabul etmelidir.
-* **FR-02:** Gelen her veri, kaybolmaması için Apache Kafka kuyruğuna (Topic: `incoming_leads`) yazılmalıdır.
-* **FR-03:** Go servisi, saniyede en az 10.000 isteği karşılayabilmelidir.
+## 2. Target User Profile
 
-### 5.2. Yapay Zeka İşlemleri (AI Core - Python & CrewAI)
-* **FR-04:** CrewAI ajanı, gelen mesajın dilini ve duygu durumunu (Sentiment) analiz etmelidir.
-* **FR-05 (RAG):** Sistem, gelen soruya cevap vermek için Vector Database (Qdrant) üzerindeki şirket dokümanlarını taramalıdır (Retrieval).
-* **FR-06:** LLM, bulunan dokümanlara dayanarak taslak bir cevap (Draft) oluşturmalıdır.
+* Robotics software engineers
+* R&D teams working with robotic systems
+* Operators monitoring robot health and status
+* Junior developers learning industrial software practices
 
-### 5.3. Çekirdek CRM İşlevleri (Core - Spring Boot & .NET)
-* **FR-07:** İşlenen veriler ve AI sonuçları ilişkisel veritabanına kaydedilmelidir.
-* **FR-08:** .NET servisi, ilgili satış temsilcisine bildirim göndermelidir.
-* **FR-09:** Redis önbelleği, sık erişilen müşteri profillerini tutmalıdır.
+---
 
-### 5.4. Arama ve Raporlama (Analytics - Elasticsearch & Grafana)
-* **FR-10:** Kullanıcılar, doğal dil ile (örn: "Geçen ay şikayet edenler") arama yapabilmelidir (Elasticsearch).
-* **FR-11:** Yönetici paneli (Grafana), anlık veri akışını ve AI performansını görselleştirmelidir.
+## 3. Functional Requirements
 
-## 6. Teknik Gereksinimler (Non-Functional Requirements)
+### 3.1 Web-Based User Interface
 
-### 6.1. Performans ve Ölçeklenebilirlik
-* **NFR-01 (Throughput):** Sistem saniyede 5.000 eşzamanlı isteği (RPS) karşılayabilmelidir. Bu durum **k6** yük testleri ile doğrulanacaktır.
-* **NFR-02 (Latency):** Servisler arası iletişimde JSON yerine **gRPC (Protobuf)** kullanılarak veri serileştirme maliyeti minimize edilmelidir.
-* **NFR-03 (Auto-Scaling):** Kubernetes HPA, CPU kullanımı %70'i aştığında otomatik olarak yeni pod başlatmalıdır.
+* Responsive dashboard accessible via web browser
+* Clean and readable UI using **HTML, CSS, Bootstrap**
+* Real-time telemetry visualization
+* Status indicators for robot state
 
-### 6.2. Güvenilirlik ve Bakım (Reliability & Maintainability)
-* **NFR-04 (IaC):** Altyapı kurulumu manuel yapılmamalı, **Terraform** scriptleri ile "Infrastructure as Code" prensibine uygun olarak versiyonlanmalıdır.
-* **NFR-05 (Tracing):** Sistemdeki her işlem (Transaction) benzersiz bir `TraceID` taşımalı ve **Jaeger** üzerinden görselleştirilebilmelidir.
+UI Components:
 
-### 6.3. Kalite ve Güvenlik (DevSecOps)
-* **NFR-06:** Kod kalitesi **SonarQube** Quality Gate'lerinden (Bugs: 0, Vulnerabilities: 0) geçmeden canlıya alınmamalıdır.
-* **NFR-07:** Veritabanı şifreleri ve API anahtarları asla kod içinde (hardcoded) bulunmamalı, **HashiCorp Vault** üzerinden dinamik olarak çekilmelidir.
+* Temperature gauge
+* Battery level indicator
+* Motor RPM visualization
+* Robot operational status badge
+* Time-based telemetry charts
 
-## 7. Kullanıcı Hikayeleri (User Stories - Örnek)
+---
 
-* **US-1:** *Bir Satış Temsilcisi olarak,* sisteme düşen yeni bir müşteri adayının (Lead) otomatik olarak analiz edilmesini ve bana bir özet sunulmasını istiyorum, *böylece* müşteriyi tanımak için saatlerce geçmiş mailleri okumak zorunda kalmam.
-* **US-2:** *Bir Yönetici olarak,* hangi ürünle ilgili daha çok şikayet geldiğini ısı haritası (Heatmap) üzerinde görmek istiyorum, *böylece* ürün geliştirme ekibini uyarabilirim.
+### 3.2 Telemetry Data Simulation
 
-## 8. Varsayımlar ve Riskler
-* **Risk:** LLM modelleri bazen yanlış bilgi (halüsinasyon) üretebilir.
-    * *Mitigasyon:* RAG mimarisi ile cevaplar sadece şirket dokümanları ile sınırlandırılacaktır.
-* **Varsayım:** Şirketin PDF ve Word formatındaki tüm dokümanları dijital ortamda erişilebilirdir.
+* Robotic telemetry data will be simulated on the backend
+
+* Data fields include:
+
+  * Temperature (°C)
+  * Battery level (%)
+  * Motor RPM
+  * Robot status (idle / working / error)
+  * Timestamp
+
+* Data generation interval: configurable (default: every 2 seconds)
+
+---
+
+### 3.3 Backend Services
+
+* Backend implemented using **Python (Flask)**
+* RESTful API architecture
+* Business logic separated from routing
+* Error handling and input validation
+
+Core API Endpoints:
+
+```
+GET  /api/telemetry/latest
+GET  /api/telemetry/history
+POST /api/robot/command
+```
+
+---
+
+### 3.4 REST API Specifications
+
+#### GET /api/telemetry/latest
+
+* Returns latest telemetry data in JSON format
+
+Response Example:
+
+```json
+{
+  "temperature": 41.8,
+  "battery": 82,
+  "motor_rpm": 1380,
+  "status": "working",
+  "timestamp": "2026-01-30T12:45:00"
+}
+```
+
+---
+
+#### GET /api/telemetry/history
+
+* Returns historical telemetry records
+* Supports optional time range filters
+
+---
+
+#### POST /api/robot/command
+
+* Accepts basic control commands
+* Commands are logged and simulated
+
+Example Commands:
+
+* start
+* stop
+* reset
+
+---
+
+### 3.5 Database Layer
+
+* Database: **PostgreSQL**
+* Telemetry data persistence
+* Table structure:
+
+```sql
+telemetry
+---------
+id (PK)
+temperature
+battery
+motor_rpm
+status
+timestamp
+```
+
+---
+
+### 3.6 Real-Time Data Handling
+
+* Telemetry updates served via:
+
+  * Periodic REST polling **or**
+  * WebSocket-based live updates (optional)
+
+* Data structure compatible with Foxglove-like telemetry formats
+
+---
+
+## 4. Non-Functional Requirements
+
+### 4.1 Performance
+
+* API response time < 300ms
+* UI refresh without full page reload
+
+### 4.2 Reliability
+
+* Graceful handling of missing or invalid data
+* Backend logging enabled
+
+### 4.3 Security
+
+* Input validation on all endpoints
+* No sensitive credentials stored in source code
+
+---
+
+## 5. Technology Stack
+
+### Backend
+
+* Python
+* Flask
+* REST API
+* PostgreSQL
+
+### Frontend
+
+* HTML
+* CSS
+* Bootstrap
+* JavaScript
+* Chart.js (data visualization)
+
+### DevOps & Tools
+
+* Git (version control)
+* Cloud deployment (Render / Railway)
+* Environment-based configuration
+
+---
+
+## 6. Deployment Requirements
+
+* Application deployed to a public cloud platform
+* Backend and frontend served from same service
+* Database hosted in managed PostgreSQL service
+* Public demo URL available
+
+---
+
+## 7. Project Structure
+
+```
+robot-telemetry-dashboard/
+├── backend/
+│   ├── app.py
+│   ├── routes/
+│   ├── services/
+│   ├── models/
+│   └── simulator/
+├── frontend/
+│   ├── templates/
+│   ├── static/
+│   │   ├── css/
+│   │   └── js/
+├── database/
+│   └── schema.sql
+├── README.md
+└── requirements.txt
+```
+
+---
+
+## 8. Development Milestones
+
+### Phase 1 – Backend Core
+
+* Flask setup
+* Telemetry simulation
+* REST API implementation
+
+### Phase 2 – Frontend Dashboard
+
+* UI layout
+* Data visualization
+* API integration
+
+### Phase 3 – Database Integration
+
+* PostgreSQL connection
+* Data persistence
+
+### Phase 4 – Deployment
+
+* Cloud deployment
+* Environment configuration
+* Public demo release
+
+---
+
+## 9. Success Criteria
+
+* Fully working deployed application
+* Live telemetry data visible on dashboard
+* Clean and maintainable codebase
+* Clear README documentation
+* Direct alignment with junior fullstack job requirements
+
+---
+
+## 10. Future Enhancements (Optional)
+
+* Authentication & role-based access
+* Multi-robot support
+* Alert system for threshold breaches
+* Advanced analytics dashboard
+
+---
+
+## 11. Summary
+
+This project demonstrates end-to-end fullstack development with a strong focus on **robotics-oriented web systems**, aligning with real-world industrial software expectations and junior fullstack developer responsibilities.
